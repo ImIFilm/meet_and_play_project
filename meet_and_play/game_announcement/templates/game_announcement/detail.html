@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <div class="jumbotron">
   <p class="text-right"><span class="oi oi-map-marker"></span></a><b>  Location: </b> {{announcement.location}}</p>
-  <h1 class="display-4">{{ announcement.get_sport_display}}</h1>
+  <h1 class="display-4">
+    <img src="{% static "images/"%}{{ announcement.get_sport_display }}.svg"/>
+    {{ announcement.get_sport_display }}
+  </h1>
  <hr class="my-4">
 <p><b>Description: </b> {{announcement.description}} </p>
   <p><b>Start time: </b> {{announcement.start_time}} </p>
@@ -15,6 +18,7 @@
   <p><b>Skill level: </b> {{announcement.skill_level}} </p>
   <p><b>Publication date: </b> {{announcement.pub_date}} </p>
   <p><b>Creator: </b> {{announcement.creator}} </p>
+  <p><b>Creator mail: </b> {{announcement.creator.email}} </p>
   
   {% if is_user_signed %}
   <p class="lead">
