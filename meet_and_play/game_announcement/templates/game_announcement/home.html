@@ -1,22 +1,38 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-{% for a in ann %}
-<div class="row pt-3">
-  <div class="col-8" onclick="window.location='{% url 'detail' a.id %}';" style="cursor: pointer;">
-    <h1>{{ a.sport }}</h1>
-    <p>{{ a.location }}</p>
-  </div>
-  <div class="col-4">
-    <a href="javascript:{document.getElementById('upvote{{ a.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> zglaszam sie {{ product.votes_total }}</button></a>
+<div class="album bg-light">
+  <div class="container pt-3 py-3">
+    {% for a in ann %}
+
+    <div class="card mb-3 shadow-sm" onclick="window.location='{% url 'detail' a.id %}';" style="cursor: pointer;">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-2">
+            <img class="h-20" src="{% static "images/"%}{{ a.get_sport_display }}.svg" />
+          </div>
+          <div class="col-md-5">
+            <p class="card-text">{{ a.location }}</p>
+            <p class="card-text">{{ a.start_time }}</p>
+          </div>
+          <div class="col-md-5">
+            <p class="card-text">{{a.registered_people}} / {{a.wanted_people}}</p>
+            <p class="card-text text-muted">{{a.get_skill_level_display}}</p>
+            <a href="javascript:{document.getElementById('upvote{{ a.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Join! {{ product.votes_total }}</button></a>
+            
+            <form id="upvote{{ a.location }}" method="POST" action="{% url 'upvote' a.id %}">
+              {% csrf_token %}
+              <input type="hidden">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
   </div>
 </div>
-
-<form id="upvote{{ a.location }}" method="POST" action="{% url 'upvote' a.id %}">
-  {% csrf_token%}
-  <input type="hidden">
-</form>
-{% endfor %}
 
 {% endblock %}
