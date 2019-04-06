@@ -11,14 +11,4 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='game_announcment',
-            name='skill_level',
-            field=models.CharField(choices=[(game_announcement.models.Sports('Football'), 'Football'), (game_announcement.models.Sports('Basketball'), 'Basketball'), (game_announcement.models.Sports('Volleyball'), 'Volleyball')], max_length=100, verbose_name='Level of skills'),
-        ),
-        migrations.AlterField(
-            model_name='game_announcment',
-            name='sport',
-            field=models.CharField(choices=[(game_announcement.models.Sports('Football'), 'Football'), (game_announcement.models.Sports('Basketball'), 'Basketball'), (game_announcement.models.Sports('Volleyball'), 'Volleyball')], max_length=100, verbose_name='Sport'),
-        ),
     ]
