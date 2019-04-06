@@ -2,68 +2,70 @@
 
 {% block content %}
 
-{% if error %}
-{{ error }}
-<br />
-<br />
-{% endif %}
+<div class="container col-md-6 pt-3 py-3">
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
 
-<h1>Create</h1>
+    <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+        <h1 class="h3 my-5 font-weight-normal">Create game</h1>
+        {% csrf_token %}
 
-<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
-{% csrf_token %}
+        <div class="form-group">
+            <label for="sportSel">Sport</label>
+            <select class="custom-select d-block w-100" id="sportSel" name="sport" autofocus>
+              {% for value, sport in sport_choices %}
+                <option value={{value}}>{{ sport }}</option>
+              {% endfor %}
+            </select>
+        </div>
+        
+        <label for="inputLocation">Location</label>
+        <input name="location" type="textbox" id="inputLocation" class="form-control mb-2" required />
 
-<div class="form-group">
-  <label for="sel1">Sport:</label>
-  <select class="form-control" id="sel1" name="sport">
-    {% for value, sport in sport_choices%}
-		<option value={{value}}>{{ sport }}</option>
-	{% endfor %}
-  </select>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="inputSDate">Start date</label>
+            <input name="start_date" type="date" id="inputSDate" class="form-control" required/>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="inputSTime">Start time</label>
+            <input name="start_time" type="time" id="inputSTime" class="form-control mb-2" required/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="inputEDate">End date</label>
+            <input name="end_date" type="date" id="inputEDate" class="form-control" required/>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="inputSTime">End time</label>
+            <input name="end_time" type="time" id="inputETime" class="form-control mb-2" required/>
+          </div>
+        </div>
+
+        <label for="inputWPAmount">Wanted amount of people</label>
+        <input name="wanted_people" type="number" id="inputWPAmount" min="1" class="form-control mb-2"/>
+
+        <label for="inputPrice">Price</label>
+        <input name="price" type="text" id="inputPrice" class="form-control mb-2"/>
+
+        <div class="form-group">
+            <label for="skillSel">Skill level</label>
+            <select class="custom-select d-block w-100" id="skillSel" name="skill_level">
+              {% for value, skill in skill_choices %}
+                <option value={{value}}>{{ skill }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        
+        <label for="inputDesc">Description</label>
+        <input name="description" type="textarea" id="inputDesc" class="form-control mb-2"/>
+
+        <input class="btn btn-dark btn-lg btn-block mt-5" type="submit" value="Add announcement" />
+    </form>
 </div>
-
-Location:
-<br />
-<input type="textbox" name="location" />
-<br />
-start_time:
-<br />
-<input type="date" name="start_time" />
-<br />
-end_time:
-<br />
-<input type="date" name="end_time" />
-<br />
-wanted_people:
-<br />
-<input type="text" name="wanted_people" />
-<br />
-registered_people:
-<br />
-<input type="text" name="registered_people" />
-<br />
-price:
-<br />
-<input type="text" name="price" />
-<br />
-
-<div class="form-group">
-  <label for="sel1">Skill level:</label>
-  <select class="form-control" id="sel2" name="skill_level">
-    {% for value, skill in skill_choices%}
-		<option value={{value}}>{{ skill }}</option>
-	{% endfor %}
-  </select>
-</div>
-
-
-<br />
-description:
-<br />
-<input type="text" name="description" />
-<br />
-<br />
-<input class="btn btn-primary" type="submit" value="Add Product" />
-</form>
-
 {% endblock %}
