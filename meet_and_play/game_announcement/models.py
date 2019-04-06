@@ -35,7 +35,7 @@ class Game_Announcement(models.Model):
 
 	def joined_users(self):
 		joined_list=self.joined.split(';')
-		return joined_list
+		return joined_list[1:-1]
 
 	def did_user_join(self, user_id):
 		if str(user_id) in self.joined_users():
