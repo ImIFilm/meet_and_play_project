@@ -1,7 +1,7 @@
 from django.db import models
 from datetime import datetime 
-from enum import Enum
 from django.contrib.auth.models import User
+from django.conf import settings
 
 class Game_Announcement(models.Model):
 	""" doc to do"""
@@ -28,5 +28,5 @@ class Game_Announcement(models.Model):
 	price = models.FloatField(default=0)
 	skill_level = models.CharField("Level of skills", max_length=100, choices=SKILL_LEVEL_CHOICES)
 	description = models.TextField("Description")
-	#pub_date = models.DateTimeField()
-	#creator = models.ForeignKey(User, on_delete=models.CASCADE)
+	pub_date = models.DateTimeField(default=datetime.now)
+	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

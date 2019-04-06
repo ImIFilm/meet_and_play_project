@@ -31,9 +31,9 @@ def create(request):
     else:
         return render(request, 'game_announcement/create.html')
 
-def detail(request, announcement_id):
-    announcement = get_object_or_404(Game_Announcement, pk=announcement_id)
-    return render(request, 'game_announcements/detail.html',{'announcement':announcement})
+def detail(request, game_announcement_id):
+    announcement = get_object_or_404(Game_Announcement, pk=game_announcement_id)
+    return render(request, 'game_announcement/detail.html',{'announcement':announcement})
 
 @login_required(login_url="/accounts/signup")
 def upvote(request, announcement_id):
@@ -41,4 +41,4 @@ def upvote(request, announcement_id):
         announcement = get_object_or_404(Game_Announcement, pk=announcement_id)
         announcement.votes_total += 1
         announcement.save()
-        return redirect('/game_announcements/' + str(announcement.id))
+        return redirect('/announcements/' + str(announcement.id))
