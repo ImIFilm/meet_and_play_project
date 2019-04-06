@@ -2,10 +2,29 @@
 
 {% block content %}
 
- {{ announcement.get_sport_display}}
- <br/>
-  {{ announcement.joined}}
-   <br/>
-  {{ announcement.registered_people}}
+<div class="jumbotron">
+  <h1 class="display-4">{{ announcement.get_sport_display}}</h1>
+ <hr class="my-4">
+<p><b>Description: </b> {{announcement.description}} </p>
+  <p><b>Location: </b> {{announcement.location}} </p>
+  <p><b>Start time: </b> {{announcement.start_time}} </p>
+  <p><b>End time: </b> {{announcement.end_time}} </p>
+  <p><b>Wanted: </b> {{announcement.wanted_people}} </p>
+ <p><b>Registered: </b> {{announcement.registered_people}} </p>
+  <p><b>Price: </b> {{announcement.price}} </p>
+  <p><b>Skill level: </b> {{announcement.skill_level}} </p>
+  <p><b>Publication date: </b> {{announcement.pub_date}} </p>
+  <p><b>Creator: </b> {{announcement.creator}} </p>
+  <p class="lead">
+    <a href="{% url 'join' announcement.id%}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Join! {{ product.votes_total }}</button></a>
+  </p>
+</div>
+
+<h3>Registered users:</h3>
+<ul class="list-group">
+ {% for u in users_list %}
+ <li class="list-group-item">{{u}}</li>
+{% endfor %}
+</ul>
 
 {% endblock %}
