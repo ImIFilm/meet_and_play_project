@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-import game_announcement.views
+from game_announcement import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', game_announcement.views.home, name='home'),
+    path('', views.home, name='home'),
     path('accounts/', include('accounts.urls')),
     path('announcements/', include('game_announcement.urls')),
 ]

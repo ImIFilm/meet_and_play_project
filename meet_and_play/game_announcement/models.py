@@ -3,7 +3,7 @@ from datetime import datetime
 from enum import Enum
 from django.contrib.auth.models import User
 
-class Game_Announcment(models.Model):
+class Game_Announcement(models.Model):
 	""" doc to do"""
 	SKILL_LEVEL_CHOICES = (
 	('0', 'Recreational'),
