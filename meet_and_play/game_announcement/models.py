@@ -25,7 +25,7 @@ class Game_Announcement(models.Model):
 	start_time = models.DateTimeField(default=datetime.now)
 	end_time = models.DateTimeField(default=datetime.now)
 	wanted_people = models.IntegerField()
-	registered_people = models.IntegerField()
+	registered_people = models.IntegerField(default=0)
 	price = models.FloatField(default=0)
 	skill_level = models.CharField("Level of skills", max_length=100, choices=SKILL_LEVEL_CHOICES)
 	description = models.TextField("Description")

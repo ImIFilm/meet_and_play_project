@@ -26,11 +26,20 @@
           <div class="col-md-5">
             <p class="card-text">{{a.registered_people}} / {{a.wanted_people}}</p>
             <p class="card-text text-muted">{{a.get_skill_level_display}}</p>
-            <a href="{% url 'join' a.id %}">
-              <button class="btn btn-dark btn-lg btn-block">
-                <span class="oi oi-caret-top"></span> Join! {{ product.votes_total }}
+            {% if user_id in a.joined_users %}
+              <a href="{% url 'resign' a.id %}">
+              <button class="btn btn-danger btn-lg btn-block">
+                Resign 
               </button>
-            </a>
+              </a>
+            {% else %}
+              <a href="{% url 'join' a.id %}">
+              <button class="btn btn-dark btn-lg btn-block">
+                 Join! 
+              </button>
+              </a>
+            {% endif %}  
+            
           </div>
         </div>
       </div>
