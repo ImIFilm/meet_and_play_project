@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Game_Announcment
+from .models import Game_Announcement
 
-admin.site.register(Game_Announcment)
+admin.site.register(Game_Announcement)
 
