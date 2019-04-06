@@ -12,10 +12,16 @@
 
 <form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
 {% csrf_token %}
-Sport:
-<br />
-<input type="text" name="sport" />
-<br />
+
+<div class="form-group">
+  <label for="sel1">Sport:</label>
+  <select class="form-control" id="sel1" name="sport">
+    {% for value, sport in sport_choices%}
+		<option value={{value}}>{{ sport }}</option>
+	{% endfor %}
+  </select>
+</div>
+
 Location:
 <br />
 <input type="textbox" name="location" />
@@ -35,14 +41,22 @@ wanted_people:
 registered_people:
 <br />
 <input type="text" name="registered_people" />
-<br />*9
+<br />
 price:
 <br />
 <input type="text" name="price" />
 <br />
-skill_level:
-<br />
-<input type="text" name="skill_level" />
+
+<div class="form-group">
+  <label for="sel1">Skill level:</label>
+  <select class="form-control" id="sel2" name="skill_level">
+    {% for value, skill in skill_choices%}
+		<option value={{value}}>{{ skill }}</option>
+	{% endfor %}
+  </select>
+</div>
+
+
 <br />
 description:
 <br />

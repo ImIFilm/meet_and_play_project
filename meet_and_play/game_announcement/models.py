@@ -3,21 +3,22 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from django.conf import settings
 
-class Game_Announcement(models.Model):
-	""" doc to do"""
-	SKILL_LEVEL_CHOICES = (
+SKILL_LEVEL_CHOICES = (
 	('0', 'Recreational'),
 	('1',  'Amatuer'),
 	('2', 'Average'),
 	('3',  'Good'),
 	('4', 'Very Good'),
-	)
+)
 
-	SPORT_CHOICES = (
-		('0', 'Football'),
-		('1',  'Basketball'),
-		('2', 'Volleyball'),
-	)
+SPORT_CHOICES = (
+	('0', 'Football'),
+	('1',  'Basketball'),
+	('2', 'Volleyball'),
+)
+
+class Game_Announcement(models.Model):
+	""" doc to do"""
 
 	sport = models.CharField("Sport", max_length=100, choices=SPORT_CHOICES)
 	location = models.CharField("Location", default="Location",max_length=100)

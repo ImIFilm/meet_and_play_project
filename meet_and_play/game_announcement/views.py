@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from game_announcement.models import Game_Announcement
+from game_announcement.models import Game_Announcement, SPORT_CHOICES, SKILL_LEVEL_CHOICES
 from django.utils import timezone
 
 def home(request):
@@ -29,7 +29,7 @@ def create(request):
         else:
             return render(request, 'game_announcement/create.html',{'error':'All fields are required.'})
     else:
-        return render(request, 'game_announcement/create.html')
+        return render(request, 'game_announcement/create.html', {'sport_choices': SPORT_CHOICES, 'skill_choices': SKILL_LEVEL_CHOICES })
 
 def detail(request, game_announcement_id):
     announcement = get_object_or_404(Game_Announcement, pk=game_announcement_id)
