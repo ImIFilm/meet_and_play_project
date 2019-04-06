@@ -46,6 +46,9 @@ def join(request, game_announcement_id):
     if announcement.did_user_join(request.user.id):
         announcements = Game_Announcement.objects.all()
         return render(request, 'game_announcement/home.html', {'ann':announcements, 'error':'You\'ve already joined this game'})
+    if announcement.registered_people >= announcement.wanted_people:
+        announcements = Game_Announcement.objects.all()
+        return render(request, 'game_announcement/home.html', {'ann':announcements, 'error':'This game is already full!'})
     announcement.joined += str(request.user.id)
     announcement.joined += ';'
     announcement.registered_people += 1
