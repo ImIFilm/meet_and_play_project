@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error %}
+{{ error }}
+<br />
+<br />
+{% endif %}
+
+<h1>Create</h1>
+
+<form method="POST" action="{% url 'create' %}" enctype="multipart/form-data">
+{% csrf_token %}
+Sport:
+<br />
+<input type="text" name="sport" />
+<br />
+Location:
+<br />
+<input type="textbox" name="location" />
+<br />
+start_time:
+<br />
+<input type="date" name="start_time" />
+<br />
+end_time:
+<br />
+<input type="date" name="end_time" />
+<br />
+wanted_people:
+<br />
+<input type="text" name="wanted_people" />
+<br />
+registered_people:
+<br />
+<input type="text" name="registered_people" />
+<br />*9
+price:
+<br />
+<input type="text" name="price" />
+<br />
+skill_level:
+<br />
+<input type="text" name="skill_level" />
+<br />
+description:
+<br />
+<input type="text" name="description" />
+<br />
+<br />
+<input class="btn btn-primary" type="submit" value="Add Product" />
+</form>
+
+{% endblock %}
