@@ -21,4 +21,5 @@ import game_announcement.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', game_announcement.views.home, name='home'),
+    path('accounts/', include('accounts.urls')),
 ]
