@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from game_announcement.models import Game_Announcement, SPORT_CHOICES, SKILL_LEVEL_CHOICES
+from django.contrib.auth.models import User
 from django.utils import timezone
 
 def home(request):
@@ -33,17 +34,23 @@ def create(request):
 
 def detail(request, game_announcement_id):
     announcement = get_object_or_404(Game_Announcement, pk=game_announcement_id)
-    return render(request, 'game_announcement/detail.html',{'announcement':announcement})
+    users_ids_list = announcement.joined_users()
+    users_list = []
+    for uid in users_ids_list:
+        users_list.append(User.objects.get(pk=int(uid)))
+    return render(request, 'game_announcement/detail.html',{'announcement':announcement, 'users_list': users_list})
 
 @login_required(login_url="/accounts/signup")
-def join(request, announcement_id):
-    print ('PRZEDPOSCIE')
-    if request.method == 'POST':
-        print ('POPOSCIE')
-        announcement = get_object_or_404(Game_Announcement, pk=announcement_id)
-        announcement.joined += request.user.id
-        print (request.user.id)
-        announcement.joined += ';'
-        announcement.registered_people += 1
-        announcement.save()
-        return redirect('/announcements/' + str(announcement.id))
+def join(request, game_announcement_id):
+    announcement = get_object_or_404(Game_Announcement, pk=game_announcement_id)
+    if announcement.did_user_join(request.user.id):
+        announcements = Game_Announcement.objects.all()
+        return render(request, 'game_announcement/home.html', {'ann':announcements, 'error':'You\'ve already joined this game'})
+    if announcement.registered_people >= announcement.wanted_people:
+        announcements = Game_Announcement.objects.all()
+        return render(request, 'game_announcement/home.html', {'ann':announcements, 'error':'This game is already full!'})
+    announcement.joined += str(request.user.id)
+    announcement.joined += ';'
+    announcement.registered_people += 1
+    announcement.save()
+    return redirect('/announcements/' + str(announcement.id))

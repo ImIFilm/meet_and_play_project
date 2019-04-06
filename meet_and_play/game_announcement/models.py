@@ -31,4 +31,13 @@ class Game_Announcement(models.Model):
 	description = models.TextField("Description")
 	pub_date = models.DateTimeField(default=datetime.now)
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-	joined = models.CharField(null=True, blank=True, max_length=1000)
+	joined = models.CharField(default=";",max_length=10000)
+
+	def joined_users(self):
+		joined_list=self.joined.split(';')
+		return joined_list[1:-1]
+
+	def did_user_join(self, user_id):
+		if str(user_id) in self.joined_users():
+			return True 
+		return False
