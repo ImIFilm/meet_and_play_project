@@ -36,14 +36,13 @@ def detail(request, game_announcement_id):
     return render(request, 'game_announcement/detail.html',{'announcement':announcement})
 
 @login_required(login_url="/accounts/signup")
-def join(request, announcement_id):
-    print ('PRZEDPOSCIE')
-    if request.method == 'POST':
-        print ('POPOSCIE')
-        announcement = get_object_or_404(Game_Announcement, pk=announcement_id)
-        announcement.joined += request.user.id
-        print (request.user.id)
-        announcement.joined += ';'
-        announcement.registered_people += 1
-        announcement.save()
-        return redirect('/announcements/' + str(announcement.id))
+def join(request, game_announcement_id):
+    announcement = get_object_or_404(Game_Announcement, pk=game_announcement_id)
+    if announcement.did_user_join(request.user.id):
+        announcements = Game_Announcement.objects.all()
+        return render(request, 'game_announcement/home.html', {'ann':announcements, 'error':'You\'ve already joined this game'})
+    announcement.joined += str(request.user.id)
+    announcement.joined += ';'
+    announcement.registered_people += 1
+    announcement.save()
+    return redirect('/announcements/' + str(announcement.id))
