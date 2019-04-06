@@ -20,17 +20,17 @@
           <div class="col-md-5">
             <p class="card-text">{{a.registered_people}} / {{a.wanted_people}}</p>
             <p class="card-text text-muted">{{a.get_skill_level_display}}</p>
-            <a href="javascript:{document.getElementById('upvote{{ a.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Join! {{ product.votes_total }}</button></a>
+            <a href="javascript:{document.getElementById('join{{ a.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Join! {{ product.votes_total }}</button></a>
             
-            <form id="upvote{{ a.location }}" method="POST" action="{% url 'upvote' a.id %}">
-              {% csrf_token %}
-              <input type="hidden">
-            </form>
+         
           </div>
         </div>
       </div>
     </div>
-
+   <form id="join{{ a.id }}" method="POST" action="{% url 'join' a.id %}">
+      {% csrf_token %}
+       <input type="hidden">
+    </form>
     {% endfor %}
   </div>
 </div>

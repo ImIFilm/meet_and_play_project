@@ -36,9 +36,14 @@ def detail(request, game_announcement_id):
     return render(request, 'game_announcement/detail.html',{'announcement':announcement})
 
 @login_required(login_url="/accounts/signup")
-def upvote(request, announcement_id):
+def join(request, announcement_id):
+    print ('PRZEDPOSCIE')
     if request.method == 'POST':
+        print ('POPOSCIE')
         announcement = get_object_or_404(Game_Announcement, pk=announcement_id)
-        announcement.votes_total += 1
+        announcement.joined += request.user.id
+        print (request.user.id)
+        announcement.joined += ';'
+        announcement.registered_people += 1
         announcement.save()
         return redirect('/announcements/' + str(announcement.id))

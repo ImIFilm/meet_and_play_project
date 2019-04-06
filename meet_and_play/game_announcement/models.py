@@ -31,3 +31,4 @@ class Game_Announcement(models.Model):
 	description = models.TextField("Description")
 	pub_date = models.DateTimeField(default=datetime.now)
 	creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+	joined = models.CharField(null=True, blank=True, max_length=1000)
